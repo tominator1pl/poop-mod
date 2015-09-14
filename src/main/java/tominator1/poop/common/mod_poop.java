@@ -40,6 +40,7 @@ public class mod_poop {
 	public static Fluid liquidPoop;
 	public static Block liquidPoopBlock;
 	public static Item poopBucket;
+	public static Block toiletBlock;
 	
 	public static CreativeTabs tabShit= new CreativeTabs("shit") {
 
@@ -71,7 +72,10 @@ public class mod_poop {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(liquidPoop.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(poopBucket), new ItemStack(Items.bucket));
 		BucketHandler.INSTANCE.buckets.put(liquidPoopBlock, poopBucket);
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
+		toiletBlock = (new BlockToilet().setBlockName("toilet"));
 		GameRegistry.registerBlock(poop, "poop");
+		GameRegistry.registerBlock(toiletBlock, "toilet");
+		GameRegistry.registerTileEntity(TileToilet.class, "tileToilet");
 		GameRegistry.registerItem(toiletPaper, "toilet_paper");
 		GameRegistry.registerItem(poopOnPaper, "poop_on_paper");
 	}
