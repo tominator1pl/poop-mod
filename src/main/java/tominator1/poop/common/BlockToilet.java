@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -50,7 +51,7 @@ public class BlockToilet extends BlockContainer{
 					if (liquid != null) {
 					if (liquid.getFluid() == FluidRegistry.WATER) {
 						
-						int qty = tank.fill(liquid);
+						int qty = tank.fill(ForgeDirection.UNKNOWN, liquid, true);
 						
 						if (qty != 0 && !entityplayer.capabilities.isCreativeMode) {
 							if (current.stackSize > 1) {
@@ -67,7 +68,7 @@ public class BlockToilet extends BlockContainer{
 						return true;
 					}
 					}
-				}else if(current.getItem() == mod_poop.toiletPaper && tank.tankWater.getFluidAmount() > 0){
+				}else if(current.getItem() == mod_poop.toiletPaper && tank.tankWater.getFluidAmount() >= 334){
 					ItemStack var12 = new ItemStack(mod_poop.poopOnPaper, 1, 0);
 
                     if (!entityplayer.inventory.addItemStackToInventory(var12))
@@ -95,26 +96,14 @@ public class BlockToilet extends BlockContainer{
 	}
 	
 	public void metaUpdated(TileToilet tank, World world,int i, int j, int k){
-		switch (tank.tankWater.getFluidAmount()) {
-		case 1000:
-			world.setBlockMetadataWithNotify(i, j, k, 3, 2);
-			break;
-		case 667:
-			tank.tankWater.drain(1, true);
-			world.setBlockMetadataWithNotify(i, j, k, 2, 2);
-			break;
-		case 666:
-			world.setBlockMetadataWithNotify(i, j, k, 2, 2);
-			break;
-		case 333:
+		if(tank.tankWater.getFluidAmount() < 334){
+			world.setBlockMetadataWithNotify(i, j, k, 0, 2);
+		}else if(tank.tankWater.getFluidAmount() >= 334 && tank.tankWater.getFluidAmount() < 667){
 			world.setBlockMetadataWithNotify(i, j, k, 1, 2);
-			break;
-		case 0:
-			world.setBlockMetadataWithNotify(i, j, k, 0, 2);
-			break;
-		default:
-			world.setBlockMetadataWithNotify(i, j, k, 0, 2);
-			break;
+		}else if(tank.tankWater.getFluidAmount() >= 667 && tank.tankWater.getFluidAmount() < 1000){
+			world.setBlockMetadataWithNotify(i, j, k, 2, 2);
+		}else if(tank.tankWater.getFluidAmount() >= 1000){
+			world.setBlockMetadataWithNotify(i, j, k, 3, 2);
 		}
 	}
 	
@@ -145,4 +134,5 @@ public class BlockToilet extends BlockContainer{
         return side == 1 ? (meta == 0 ? this.iconBuffer[1] : (meta == 1 ? this.iconBuffer[2] : (meta == 2 ? this.iconBuffer[3] : (meta == 3 ? this.iconBuffer[4] : this.iconBuffer[1])))) : this.iconBuffer[0];
         
 	}
+    
 }
