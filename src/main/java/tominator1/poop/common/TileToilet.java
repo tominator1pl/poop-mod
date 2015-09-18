@@ -54,10 +54,6 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 		if (liquid != null && liquid.amount > 0 && !liquid.isFluidEqual(resourceCopy)) {
 			return 0;
 		}
-		/*if(resource.getFluid() == FluidRegistry.WATER && resource.amount == FluidContainerRegistry.BUCKET_VOLUME){
-			tankWater.fill(resource, doFill);
-			return FluidContainerRegistry.BUCKET_VOLUME;
-		}*/
 		while (tankToFill != null && resourceCopy.amount > 0 && tankToFill.getFluidAmount() < FluidContainerRegistry.BUCKET_VOLUME) {
 			int used = tankToFill.fill(resourceCopy, doFill);
 			resourceCopy.amount -= used;
@@ -73,8 +69,11 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 	
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxEmpty, boolean doDrain){
-		FluidStack r = tankWater.drain(maxEmpty, doDrain);
-		return r;
+		if(from == ForgeDirection.UNKNOWN){
+			FluidStack r = tankWater.drain(maxEmpty, doDrain);	
+			return r;
+		}
+		return null;
 	}
 
 	@Override

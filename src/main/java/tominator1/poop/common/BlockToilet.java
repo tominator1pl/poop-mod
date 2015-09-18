@@ -86,7 +86,7 @@ public class BlockToilet extends BlockContainer{
                     {
                         entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack)null);
                     }
-                    tank.tankWater.drain(333, true);
+                    tank.drain(ForgeDirection.UNKNOWN, 333, true);
                     metaUpdated(tank, world, i, j, k);
                     return true;
 				}
