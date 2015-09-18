@@ -1,8 +1,9 @@
 tile.poop.name=Gówno
 tile.toilet.name=Toaleta
+tile.autoToilet.name=Automatyczna-Toaleta
 tile.liquidPoop.name=Ciekłe Gówno
-fluid.tile.liquidPoop.name=Ciekłe Gówno
-item.toilet_paper.name=Papier Toaletowy
+fluid.tile.liquidPoop=Ciekłe Gówno
 item.poopBucket.name=Wiadro Cikłego Gówna
+item.toilet_paper.name=Papier Toaletowy
 item.poop_on_paper.name=Gówno Na Papierze
 itemGroup.shit=Poop Mod

@@ -43,6 +43,7 @@ public class mod_poop {
 	public static Block liquidPoopBlock;
 	public static Item poopBucket;
 	public static Block toiletBlock;
+	public static Block toiletAutoBlock;
 	
 	public static CreativeTabs tabShit= new CreativeTabs("shit") {
 
@@ -61,6 +62,7 @@ public class mod_poop {
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 	    //proxy.load();
+		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 		poop = (new BlockPoop().setBlockName("poop"));
 		toiletPaper = (new ItemToiletPaper().setUnlocalizedName("toilet_paper"));
 		poopOnPaper = (new ItemPoopOnPaper().setUnlocalizedName("poop_on_paper"));
@@ -75,9 +77,12 @@ public class mod_poop {
 		BucketHandler.INSTANCE.buckets.put(liquidPoopBlock, poopBucket);
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 		toiletBlock = (new BlockToilet().setBlockName("toilet"));
+		toiletAutoBlock = (new BlockAutoToilet().setBlockName("autoToilet"));
 		GameRegistry.registerBlock(poop, "poop");
 		GameRegistry.registerBlock(toiletBlock, "toilet");
 		GameRegistry.registerTileEntity(TileToilet.class, "tileToilet");
+		GameRegistry.registerBlock(toiletAutoBlock, "autoToilet");
+		GameRegistry.registerTileEntity(TileAutoToilet.class, "tileAutoToilet");
 		GameRegistry.registerItem(toiletPaper, "toilet_paper");
 		GameRegistry.registerItem(poopOnPaper, "poop_on_paper");
 	}

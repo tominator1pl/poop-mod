@@ -1,5 +1,6 @@
 package tominator1.poop.common;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -51,7 +52,7 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 			return 0;
 		}
 		FluidStack liquid = tankToFill.getFluid();
-		if (liquid != null && liquid.amount > 0 && !liquid.isFluidEqual(resourceCopy)) {
+		if (!liquid.isFluidEqual(resourceCopy)) {
 			return 0;
 		}
 		while (tankToFill != null && resourceCopy.amount > 0 && tankToFill.getFluidAmount() < FluidContainerRegistry.BUCKET_VOLUME) {
