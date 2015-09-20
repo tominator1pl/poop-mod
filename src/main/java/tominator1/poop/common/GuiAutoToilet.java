@@ -33,6 +33,7 @@ public class GuiAutoToilet extends GuiContainer{
 		 fontRendererObj.drawString(StatCollector.translateToLocal("tile.autoToilet.name"), 8, 6, 4210752);
 		 fontRendererObj.drawString(StatCollector.translateToLocal("tile.water.name")+": " + tile.tankWater.getFluidAmount()+" / 1000mB", 8, 18, 4210752);
 		 fontRendererObj.drawString(StatCollector.translateToLocal("fluid.tile.liquidPoop")+ ": " + tile.tankPoop.getFluidAmount()+" / 1000mB", 8, 30, 4210752);
+		 fontRendererObj.drawString(StatCollector.translateToLocal("word.animals")+ ": " + tile.mobsLength+" ("+((float)tile.mobsLength/20)+"mB/t)", 8, 42, 4210752);
 		 fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	 }
 	 

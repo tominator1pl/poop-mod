@@ -14,6 +14,7 @@ public class ContainerAutoToilet extends Container{
 	private TileAutoToilet tank;
 	private int tankWaterAmount;
 	private int tankPoopAmount;
+	private int tankMobsLength;
 	
 
 	public ContainerAutoToilet(InventoryPlayer inventoryPlayer, TileAutoToilet tile){
@@ -38,6 +39,7 @@ public class ContainerAutoToilet extends Container{
 	        super.addCraftingToCrafters(iCrafting);
 	        iCrafting.sendProgressBarUpdate(this, 0, this.tank.tankWater.getFluidAmount());
 	        iCrafting.sendProgressBarUpdate(this, 1, this.tank.tankPoop.getFluidAmount());
+	        iCrafting.sendProgressBarUpdate(this, 2, this.tank.mobsLength);
 	    }
 	
 	 
@@ -58,10 +60,15 @@ public class ContainerAutoToilet extends Container{
 	            {
 	                icrafting.sendProgressBarUpdate(this, 1, this.tank.tankPoop.getFluidAmount());
 	            }
+	            if (this.tankMobsLength != this.tank.mobsLength)
+	            {
+	                icrafting.sendProgressBarUpdate(this, 2, this.tank.mobsLength);
+	            }
 	        }
 
 	        this.tankWaterAmount = this.tank.tankWater.getFluidAmount();
 	        this.tankPoopAmount = this.tank.tankPoop.getFluidAmount();
+	        this.tankMobsLength = this.tank.mobsLength;
 	    }
 	 
 	 @SideOnly(Side.CLIENT)
@@ -75,6 +82,10 @@ public class ContainerAutoToilet extends Container{
 	        if (par1 == 1)
 	        {
 	            this.tank.tankPoop.setFluid(new FluidStack(mod_poop.liquidPoop, par2));
+	        }
+	        if (par1 == 2)
+	        {
+	            this.tank.mobsLength = par2;
 	        }
 	    }
 	@Override

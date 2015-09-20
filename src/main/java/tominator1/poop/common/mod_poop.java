@@ -36,6 +36,7 @@ public class mod_poop {
 	@SidedProxy(clientSide="tominator1.poop.client.poopClientProxy", serverSide="tominator1.poop.common.poopCommonProxy")
 	public static poopCommonProxy proxy;
 	
+	public static SimpleNetworkWrapper network;
 	public static Block poop;
 	public static Item toiletPaper;
 	public static Item poopOnPaper;
@@ -57,6 +58,8 @@ public class mod_poop {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 	    //proxy.preInit();
+		network = NetworkRegistry.INSTANCE.newSimpleChannel("AutoToiletChannel");
+		network.registerMessage(AutoToiletPacket.Handler.class, AutoToiletPacket.class, 0, Side.CLIENT);
 	}
 
 	@EventHandler
@@ -76,6 +79,7 @@ public class mod_poop {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(liquidPoop.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(poopBucket), new ItemStack(Items.bucket));
 		BucketHandler.INSTANCE.buckets.put(liquidPoopBlock, poopBucket);
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(AutoToiletHandler.INSTANCE);
 		toiletBlock = (new BlockToilet().setBlockName("toilet"));
 		toiletAutoBlock = (new BlockAutoToilet().setBlockName("autoToilet"));
 		GameRegistry.registerBlock(poop, "poop");

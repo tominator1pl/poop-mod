@@ -1,11 +1,22 @@
 package tominator1.poop.common;
 
+import java.util.List;
 import java.util.Random;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import scala.collection.generic.BitOperations.Int;
 import scala.tools.nsc.ast.Trees.InjectDerivedValue;
+import scala.xml.dtd.impl.WordBerrySethi;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -16,8 +27,8 @@ import net.minecraftforge.fluids.FluidTank;
 
 public class TileAutoToilet extends TileToilet{
 
-	private int convertSpeed = 1;
 	private BlockAutoToilet bloczek;
+	public int mobsLength;
 	
 	public boolean isUseableByPlayer(EntityPlayer player) {
 		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this &&
@@ -25,22 +36,26 @@ public class TileAutoToilet extends TileToilet{
 	}
 	
 	public void updateEntity(){
-		if (this.worldObj.getTotalWorldTime() % 80L == 0L)
+		if(!worldObj.isRemote){
+		if (this.worldObj.getTotalWorldTime() % 20L == 0L)
         {
+			List mobs = this.worldObj.getEntitiesWithinAABB(EntityAnimal.class,AxisAlignedBB.getBoundingBox(this.xCoord-2, this.yCoord+1, this.zCoord-2, this.xCoord+3, this.yCoord+2, this.zCoord+3));
+			int tempMobs = 0;
+			for(int p = 0;p < mobs.size(); ++p){
+				if(AutoToiletHandler.INSTANCE.isThisMine((EntityAnimal) mobs.get(p), this)){
+					tempMobs++;
+				}
+			}
+			mobsLength = tempMobs;
 			if(tankPoop.getFluidAmount() < 1000 && tankWater.getFluidAmount() > 0){
-				FluidStack i = tankWater.drain(convertSpeed, true);
+				FluidStack i = tankWater.drain(mobsLength, true);
 				int j = i.amount;
 				tankPoop.fill(new FluidStack(mod_poop.liquidPoop, j), true);
 				((BlockToilet) worldObj.getBlock(xCoord, yCoord, zCoord)).metaUpdated(this, worldObj, xCoord, yCoord, zCoord);
-			}
-		/*FluidStack i = drain(ForgeDirection.UNKNOWN, new FluidStack(FluidRegistry.WATER, convertSpeed), true);
-		if(i != null){
-			int j = i.amount;
-			tankPoop.fill(new FluidStack(mod_poop.liquidPoop, j), true);
-		}else{
-			tankWater.fill(new FluidStack(FluidRegistry.WATER, 1), true);
-		}*/
+			}	
+				mod_poop.network.sendToAllAround(new AutoToiletPacket(this), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 10));
         }
+		}
 	}
 	
 	
@@ -50,7 +65,7 @@ public class TileAutoToilet extends TileToilet{
 			FluidStack r = tankWater.drain(maxEmpty, doDrain);	
 			return r;
 		}else if(from == ForgeDirection.DOWN){
-			FluidStack r = tankPoop.drain(maxEmpty, doDrain);	
+			FluidStack r = tankPoop.drain(maxEmpty, doDrain);
 			return r;
 		}
 		return null;
