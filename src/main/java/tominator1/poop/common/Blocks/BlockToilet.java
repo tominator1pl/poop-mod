@@ -1,5 +1,7 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Blocks;
 
+import tominator1.poop.common.mod_poop;
+import tominator1.poop.common.Tiles.TileToilet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -23,7 +25,7 @@ public class BlockToilet extends BlockContainer{
 	
 	private IIcon[] iconBuffer;
 	
-	protected BlockToilet() {
+	public BlockToilet() {
 		super(Material.iron);
 		this.setCreativeTab(mod_poop.tabShit);
 		this.setHardness(5.0F);

@@ -1,5 +1,21 @@
 package tominator1.poop.common;
 
+import tominator1.poop.common.Blocks.BlockAutoToilet;
+import tominator1.poop.common.Blocks.BlockIngotCaster;
+import tominator1.poop.common.Blocks.BlockLiquidShit;
+import tominator1.poop.common.Blocks.BlockPoop;
+import tominator1.poop.common.Blocks.BlockToilet;
+import tominator1.poop.common.Handlers.AutoToiletHandler;
+import tominator1.poop.common.Handlers.BucketHandler;
+import tominator1.poop.common.Items.ItemPoopBucket;
+import tominator1.poop.common.Items.ItemPoopIngot;
+import tominator1.poop.common.Items.ItemPoopOnPaper;
+import tominator1.poop.common.Items.ItemToiletPaper;
+import tominator1.poop.common.Packets.AutoToiletPacket;
+import tominator1.poop.common.Packets.IngotCasterPacket;
+import tominator1.poop.common.Tiles.TileAutoToilet;
+import tominator1.poop.common.Tiles.TileIngotCaster;
+import tominator1.poop.common.Tiles.TileToilet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -40,11 +56,13 @@ public class mod_poop {
 	public static Block poop;
 	public static Item toiletPaper;
 	public static Item poopOnPaper;
+	public static Item poopIngot;
 	public static Fluid liquidPoop;
 	public static Block liquidPoopBlock;
 	public static Item poopBucket;
 	public static Block toiletBlock;
 	public static Block toiletAutoBlock;
+	public static Block ingotCasterBlock;
 	
 	public static CreativeTabs tabShit= new CreativeTabs("shit") {
 
@@ -58,8 +76,9 @@ public class mod_poop {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 	    //proxy.preInit();
-		network = NetworkRegistry.INSTANCE.newSimpleChannel("AutoToiletChannel");
+		network = NetworkRegistry.INSTANCE.newSimpleChannel("PoopChannel");
 		network.registerMessage(AutoToiletPacket.Handler.class, AutoToiletPacket.class, 0, Side.CLIENT);
+		network.registerMessage(IngotCasterPacket.Handler.class, IngotCasterPacket.class, 1, Side.CLIENT);
 	}
 
 	@EventHandler
@@ -69,6 +88,7 @@ public class mod_poop {
 		poop = (new BlockPoop().setBlockName("poop"));
 		toiletPaper = (new ItemToiletPaper().setUnlocalizedName("toilet_paper"));
 		poopOnPaper = (new ItemPoopOnPaper().setUnlocalizedName("poop_on_paper"));
+		poopIngot = (new ItemPoopIngot().setUnlocalizedName("poopIngot"));
 		liquidPoop = (new Fluid("liquidShit").setViscosity(3000));
 		FluidRegistry.registerFluid(liquidPoop);
 		liquidPoopBlock = (new BlockLiquidShit(liquidPoop, Material.water));
@@ -82,13 +102,17 @@ public class mod_poop {
 		MinecraftForge.EVENT_BUS.register(AutoToiletHandler.INSTANCE);
 		toiletBlock = (new BlockToilet().setBlockName("toilet"));
 		toiletAutoBlock = (new BlockAutoToilet().setBlockName("autoToilet"));
+		ingotCasterBlock = (new BlockIngotCaster().setBlockName("ingotCaster"));
 		GameRegistry.registerBlock(poop, "poop");
 		GameRegistry.registerBlock(toiletBlock, "toilet");
 		GameRegistry.registerTileEntity(TileToilet.class, "tileToilet");
 		GameRegistry.registerBlock(toiletAutoBlock, "autoToilet");
 		GameRegistry.registerTileEntity(TileAutoToilet.class, "tileAutoToilet");
+		GameRegistry.registerBlock(ingotCasterBlock, "ingotCaster");
+		GameRegistry.registerTileEntity(TileIngotCaster.class, "tileIngotCaster");
 		GameRegistry.registerItem(toiletPaper, "toilet_paper");
 		GameRegistry.registerItem(poopOnPaper, "poop_on_paper");
+		GameRegistry.registerItem(poopIngot, "poopIngot");
 	}
 
 	@EventHandler

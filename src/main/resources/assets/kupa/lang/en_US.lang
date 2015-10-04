@@ -1,10 +1,13 @@
 tile.poop.name=Shit
 tile.toilet.name=Toilet
 tile.autoToilet.name=Auto-Toilet
+tile.ingotCaster.name=Caster
+container.ingotCaster=Caster
 tile.liquidPoop.name=Liquid Shit
 fluid.tile.liquidPoop=Liquid Shit
 item.poopBucket.name=Bucket of Liquid Shit
 item.toilet_paper.name=Toilet Paper
 item.poop_on_paper.name=Shit On Paper
+item.poopIngot.name=Shit Ingot
 itemGroup.shit=Poop Mod
 word.animals=Animals

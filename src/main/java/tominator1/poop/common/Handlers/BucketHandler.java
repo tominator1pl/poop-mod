@@ -1,4 +1,4 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Handlers;
 
 import java.util.HashMap;
 import java.util.Map;

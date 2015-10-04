@@ -1,6 +1,9 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Guis;
 
 import org.lwjgl.opengl.GL11;
+
+import tominator1.poop.common.Containers.ContainerAutoToilet;
+import tominator1.poop.common.Tiles.TileAutoToilet;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;

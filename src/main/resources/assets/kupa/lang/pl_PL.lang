@@ -1,10 +1,13 @@
 tile.poop.name=Gówno
 tile.toilet.name=Toaleta
 tile.autoToilet.name=Automatyczna-Toaleta
+tile.ingotCaster.name=Odlewnik
+container.ingotCaster=Odlewnik
 tile.liquidPoop.name=Ciekłe Gówno
 fluid.tile.liquidPoop=Ciekłe Gówno
 item.poopBucket.name=Wiadro Cikłego Gówna
 item.toilet_paper.name=Papier Toaletowy
 item.poop_on_paper.name=Gówno Na Papierze
+item.poopIngot.name=Sztabka Gówna
 itemGroup.shit=Poop Mod
 word.animals=Zwierzęta

@@ -1,6 +1,8 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Packets;
 
 import tominator1.poop.client.poopClientProxy;
+import tominator1.poop.common.mod_poop;
+import tominator1.poop.common.Tiles.TileAutoToilet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fluids.FluidRegistry;

@@ -1,5 +1,7 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Tiles;
 
+import tominator1.poop.common.mod_poop;
+import tominator1.poop.common.Blocks.BlockToilet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -52,7 +54,7 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 			return 0;
 		}
 		FluidStack liquid = tankToFill.getFluid();
-		if (!liquid.isFluidEqual(resourceCopy)) {
+		if (!resourceCopy.isFluidEqual(new FluidStack(FluidRegistry.WATER,1))) {
 			return 0;
 		}
 		while (tankToFill != null && resourceCopy.amount > 0 && tankToFill.getFluidAmount() < FluidContainerRegistry.BUCKET_VOLUME) {
@@ -71,7 +73,7 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxEmpty, boolean doDrain){
 		if(from == ForgeDirection.UNKNOWN){
-			FluidStack r = tankWater.drain(maxEmpty, doDrain);	
+			FluidStack r = tankWater.drain(maxEmpty, doDrain);
 			return r;
 		}
 		return null;

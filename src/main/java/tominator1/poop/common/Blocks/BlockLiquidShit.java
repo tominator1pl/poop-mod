@@ -1,5 +1,6 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Blocks;
 
+import tominator1.poop.common.mod_poop;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;

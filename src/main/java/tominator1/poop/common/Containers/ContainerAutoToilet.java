@@ -1,5 +1,7 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Containers;
 
+import tominator1.poop.common.mod_poop;
+import tominator1.poop.common.Tiles.TileAutoToilet;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;

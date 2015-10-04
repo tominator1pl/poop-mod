@@ -1,4 +1,4 @@
-package tominator1.poop.common;
+package tominator1.poop.common.Tiles;
 
 import java.util.List;
 import java.util.Random;
@@ -10,6 +10,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import scala.collection.generic.BitOperations.Int;
 import scala.tools.nsc.ast.Trees.InjectDerivedValue;
 import scala.xml.dtd.impl.WordBerrySethi;
+import tominator1.poop.common.mod_poop;
+import tominator1.poop.common.Blocks.BlockAutoToilet;
+import tominator1.poop.common.Blocks.BlockToilet;
+import tominator1.poop.common.Handlers.AutoToiletHandler;
+import tominator1.poop.common.Packets.AutoToiletPacket;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

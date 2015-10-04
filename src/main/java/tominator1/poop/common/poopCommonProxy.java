@@ -1,5 +1,11 @@
 package tominator1.poop.common;
 
+import tominator1.poop.common.Containers.ContainerAutoToilet;
+import tominator1.poop.common.Containers.ContainerIngotCaster;
+import tominator1.poop.common.Guis.GuiAutoToilet;
+import tominator1.poop.common.Guis.GuiIngotCaster;
+import tominator1.poop.common.Tiles.TileAutoToilet;
+import tominator1.poop.common.Tiles.TileIngotCaster;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -16,6 +22,9 @@ public class poopCommonProxy implements IGuiHandler{
 		if(tileEntity instanceof TileAutoToilet){
             return new ContainerAutoToilet(player.inventory, (TileAutoToilet) tileEntity);
 		}
+		if(tileEntity instanceof TileIngotCaster){
+            return new ContainerIngotCaster(player.inventory, (TileIngotCaster) tileEntity);
+		}
 		return null;
 	}
 
@@ -24,6 +33,9 @@ public class poopCommonProxy implements IGuiHandler{
 		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if(tileEntity instanceof TileAutoToilet){
             return new GuiAutoToilet(player.inventory, (TileAutoToilet) tileEntity);
+		}
+		if(tileEntity instanceof TileIngotCaster){
+            return new GuiIngotCaster(player.inventory, (TileIngotCaster) tileEntity);
 		}
     
     return null;
