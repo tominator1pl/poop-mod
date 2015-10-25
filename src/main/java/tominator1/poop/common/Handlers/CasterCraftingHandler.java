@@ -1,19 +1,9 @@
 package tominator1.poop.common.Handlers;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-
-import tominator1.poop.common.Tiles.TileAutoToilet;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CasterCraftingHandler {
@@ -53,7 +43,6 @@ public class CasterCraftingHandler {
     	for (FluidStack entry : recipes.keySet())
     	{
     		if(entry.isFluidEqual(fluidStack) && entry.amount <= fluidStack.amount){
-    			//System.out.println(entry + "/" + recipes.get(entry).itemStack.stackSize);
     			if(outerOutputs == null){
     				outerOutputs = entry;
     			}else if(outerOutputs.amount < entry.amount){
@@ -61,9 +50,6 @@ public class CasterCraftingHandler {
     			}
     		}
     	}
-    	}
-    	if(outerOutputs != null){
-    		System.out.println(recipes.get(outerOutputs).itemStack.stackSize);
     	}
     	return recipes.get(outerOutputs);
     }

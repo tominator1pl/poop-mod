@@ -1,7 +1,5 @@
 package tominator1.poop.common.Packets;
 
-import com.google.common.collect.FluentIterable;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.FluidRegistry;

@@ -7,9 +7,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import tominator1.poop.common.Containers.ContainerAutoToilet;
 import tominator1.poop.common.Containers.ContainerIngotCaster;
-import tominator1.poop.common.Tiles.TileAutoToilet;
 import tominator1.poop.common.Tiles.TileIngotCaster;
 
 public class GuiIngotCaster extends GuiContainer{

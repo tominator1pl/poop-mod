@@ -6,7 +6,6 @@ import tominator1.poop.common.Guis.GuiAutoToilet;
 import tominator1.poop.common.Guis.GuiIngotCaster;
 import tominator1.poop.common.Tiles.TileAutoToilet;
 import tominator1.poop.common.Tiles.TileIngotCaster;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

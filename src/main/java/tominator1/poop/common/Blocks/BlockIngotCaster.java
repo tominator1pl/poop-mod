@@ -3,9 +3,7 @@ package tominator1.poop.common.Blocks;
 import java.util.Random;
 
 import tominator1.poop.common.mod_poop;
-import tominator1.poop.common.Guis.GuiAutoToilet;
 import tominator1.poop.common.Guis.GuiIngotCaster;
-import tominator1.poop.common.Tiles.TileAutoToilet;
 import tominator1.poop.common.Tiles.TileIngotCaster;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -19,13 +17,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class BlockIngotCaster extends BlockContainer{
 	private final Random rand = new Random();

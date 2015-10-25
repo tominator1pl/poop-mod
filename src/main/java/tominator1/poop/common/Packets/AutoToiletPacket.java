@@ -1,14 +1,11 @@
 package tominator1.poop.common.Packets;
 
-import tominator1.poop.client.poopClientProxy;
 import tominator1.poop.common.mod_poop;
 import tominator1.poop.common.Tiles.TileAutoToilet;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import io.netty.buffer.ByteBuf;
-import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;

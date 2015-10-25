@@ -1,26 +1,20 @@
 package tominator1.poop.common.Tiles;
 
-import java.util.List;
-
 import tominator1.poop.common.mod_poop;
-import tominator1.poop.common.Blocks.BlockIngotCaster;
 import tominator1.poop.common.Handlers.CasterCraftingHandler;
 import tominator1.poop.common.Handlers.CasterCraftingHandler.RecipeOutputs;
 import tominator1.poop.common.Packets.IngotCasterPacket;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -67,17 +61,6 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 					tankPoop.drain(copyFluidStack.amount, true);
 				}
 			}
-			/*if(tankPoop.getFluidAmount() >= FluidContainerRegistry.BUCKET_VOLUME){
-				if (this.ingotCasterItemStacks[0] != null && this.ingotCasterItemStacks[0].isItemEqual(new ItemStack(mod_poop.poop))){
-					if(this.ingotCasterItemStacks[0].stackSize < getInventoryStackLimit()){
-						this.ingotCasterItemStacks[0].stackSize += 1;
-						tankPoop.drain(FluidContainerRegistry.BUCKET_VOLUME, true);
-					}
-				}else{
-					this.ingotCasterItemStacks[0] = new ItemStack(mod_poop.poop,1,0);
-					tankPoop.drain(FluidContainerRegistry.BUCKET_VOLUME, true);
-				}
-			}*/
 			mod_poop.network.sendToAllAround(new IngotCasterPacket(this), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 5));
         }
 		}
@@ -86,7 +69,6 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 	@Override
 	public void writeToNBT(NBTTagCompound data)
 	  {
-		//data.setInteger("tankPoopAmount", tankPoop.getFluidAmount());
 		tankPoop.writeToNBT(data);
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -108,7 +90,6 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 	@Override
 	public void readFromNBT(NBTTagCompound data)
 	  {
-		//tankPoop.fill(new FluidStack(mod_poop.liquidPoop, data.getInteger("tankPooopAmount")), true);
 		tankPoop.readFromNBT(data);
 		NBTTagList nbttaglist = data.getTagList("Items", 10);
         this.ingotCasterItemStacks = new ItemStack[this.getSizeInventory()];

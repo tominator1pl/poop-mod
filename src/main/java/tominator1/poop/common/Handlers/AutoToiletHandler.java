@@ -5,9 +5,7 @@ import java.util.Map;
 
 import tominator1.poop.common.Tiles.TileAutoToilet;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.item.Item;
 
 public class AutoToiletHandler {
 	public static AutoToiletHandler INSTANCE = new AutoToiletHandler();

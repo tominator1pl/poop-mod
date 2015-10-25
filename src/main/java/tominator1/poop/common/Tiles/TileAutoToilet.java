@@ -1,34 +1,25 @@
 package tominator1.poop.common.Tiles;
 
 import java.util.List;
-import java.util.Random;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import scala.collection.generic.BitOperations.Int;
-import scala.tools.nsc.ast.Trees.InjectDerivedValue;
-import scala.xml.dtd.impl.WordBerrySethi;
 import tominator1.poop.common.mod_poop;
 import tominator1.poop.common.Blocks.BlockAutoToilet;
 import tominator1.poop.common.Blocks.BlockToilet;
 import tominator1.poop.common.Handlers.AutoToiletHandler;
 import tominator1.poop.common.Packets.AutoToiletPacket;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+
 
 public class TileAutoToilet extends TileToilet{
 
