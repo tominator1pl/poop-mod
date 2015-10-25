@@ -31,7 +31,7 @@ public class GuiIngotCaster extends GuiContainer{
 	 @Override
      protected void drawGuiContainerForegroundLayer(int param1, int param2) {
 		 fontRendererObj.drawString(StatCollector.translateToLocal("tile.ingotCaster.name"), 8, 6, 4210752);
-		 fontRendererObj.drawString(StatCollector.translateToLocal("fluid.tile.liquidPoop")+ ": " + tile.tankPoop.getFluidAmount()+" / 4000mB", 8, 18, 4210752);
+		 fontRendererObj.drawString(StatCollector.translateToLocal(tile.tankPoop.getFluid().getUnlocalizedName())+ ": " + tile.tankPoop.getFluidAmount()+" / 4000mB", 8, 18, 4210752);
 		 fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	 }
 	 

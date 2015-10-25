@@ -9,6 +9,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -95,4 +96,42 @@ public class ContainerAutoToilet extends Container{
 		return tank.isUseableByPlayer(entityPlayer);
 	}
 
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotnum){
+		
+		ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotnum);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (slotnum == 0)
+            {
+                return null;
+            }
+            else if (slotnum != 0)
+            {
+                return null;
+            }
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+
+            if (itemstack1.stackSize == itemstack.stackSize)
+            {
+                return null;
+            }
+
+            slot.onPickupFromSlot(entityPlayer, itemstack1);
+        }
+
+        return itemstack;
+	}
 }

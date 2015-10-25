@@ -7,6 +7,8 @@ import tominator1.poop.common.Blocks.BlockPoop;
 import tominator1.poop.common.Blocks.BlockToilet;
 import tominator1.poop.common.Handlers.AutoToiletHandler;
 import tominator1.poop.common.Handlers.BucketHandler;
+import tominator1.poop.common.Handlers.CasterCraftingHandler;
+import tominator1.poop.common.Handlers.CasterCraftingHandler.RecipeOutputs;
 import tominator1.poop.common.Items.ItemPoopBucket;
 import tominator1.poop.common.Items.ItemPoopIngot;
 import tominator1.poop.common.Items.ItemPoopOnPaper;
@@ -29,6 +31,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -100,6 +103,7 @@ public class mod_poop {
 		BucketHandler.INSTANCE.buckets.put(liquidPoopBlock, poopBucket);
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(AutoToiletHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(CasterCraftingHandler.INSTANCE);
 		toiletBlock = (new BlockToilet().setBlockName("toilet"));
 		toiletAutoBlock = (new BlockAutoToilet().setBlockName("autoToilet"));
 		ingotCasterBlock = (new BlockIngotCaster().setBlockName("ingotCaster"));
@@ -118,6 +122,7 @@ public class mod_poop {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 	    //proxy.postInit();
+		CasterCraftingHandler.INSTANCE.addRecipe(new FluidStack(liquidPoop, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(poop, 1));
 	}
 	
 	@EventHandler

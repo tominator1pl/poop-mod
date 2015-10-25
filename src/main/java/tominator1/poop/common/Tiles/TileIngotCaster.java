@@ -4,6 +4,8 @@ import java.util.List;
 
 import tominator1.poop.common.mod_poop;
 import tominator1.poop.common.Blocks.BlockIngotCaster;
+import tominator1.poop.common.Handlers.CasterCraftingHandler;
+import tominator1.poop.common.Handlers.CasterCraftingHandler.RecipeOutputs;
 import tominator1.poop.common.Packets.IngotCasterPacket;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -25,7 +27,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileIngotCaster extends TileEntity implements IFluidHandler, ISidedInventory{
-	public FluidTank tankPoop = new FluidTank(mod_poop.liquidPoop, 0, FluidContainerRegistry.BUCKET_VOLUME*4);
+	public FluidTank tankPoop = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME*4);
 	private ItemStack[] ingotCasterItemStacks = new ItemStack[1];
 	private static final int[] SLOTS = new int[]{0};
 	
@@ -42,11 +44,30 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 			if(tile3 != null){
 				if(tile3 instanceof IFluidHandler){
 					int emptyness = tankPoop.getCapacity() - tankPoop.getFluidAmount();
-					FluidStack drained = ((IFluidHandler) tile3).drain(ForgeDirection.DOWN, new FluidStack(mod_poop.liquidPoop, emptyness), true);
-					tankPoop.fill(drained, true);
+					if(tankPoop.getFluidAmount() == 0 || tankPoop.getFluid().isFluidEqual((FluidStack)((IFluidHandler) tile3).drain(ForgeDirection.DOWN, emptyness, false))){
+						FluidStack drained = ((IFluidHandler) tile3).drain(ForgeDirection.DOWN, emptyness, true);
+						if(drained != null){
+							tankPoop.setFluid(new FluidStack(drained.getFluid(), tankPoop.getFluidAmount()));
+							tankPoop.fill(drained, true);
+						}
+					}
 				}
 			}
-			if(tankPoop.getFluidAmount() >= FluidContainerRegistry.BUCKET_VOLUME){
+			RecipeOutputs Otputs = CasterCraftingHandler.INSTANCE.getRecipe(tankPoop.getFluid());
+			if(Otputs != null){
+				ItemStack copyItemStack = Otputs.itemStack.copy();
+				FluidStack copyFluidStack = Otputs.fluidStack.copy();
+				if(this.ingotCasterItemStacks[0] != null && this.ingotCasterItemStacks[0].isItemEqual(copyItemStack)){
+					if(this.ingotCasterItemStacks[0].stackSize < getInventoryStackLimit()){
+						this.ingotCasterItemStacks[0].stackSize += copyItemStack.stackSize;
+						tankPoop.drain(copyFluidStack.amount, true);
+					}
+				}else if(this.ingotCasterItemStacks[0] == null){
+					this.ingotCasterItemStacks[0] = copyItemStack;
+					tankPoop.drain(copyFluidStack.amount, true);
+				}
+			}
+			/*if(tankPoop.getFluidAmount() >= FluidContainerRegistry.BUCKET_VOLUME){
 				if (this.ingotCasterItemStacks[0] != null && this.ingotCasterItemStacks[0].isItemEqual(new ItemStack(mod_poop.poop))){
 					if(this.ingotCasterItemStacks[0].stackSize < getInventoryStackLimit()){
 						this.ingotCasterItemStacks[0].stackSize += 1;
@@ -56,7 +77,7 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 					this.ingotCasterItemStacks[0] = new ItemStack(mod_poop.poop,1,0);
 					tankPoop.drain(FluidContainerRegistry.BUCKET_VOLUME, true);
 				}
-			}
+			}*/
 			mod_poop.network.sendToAllAround(new IngotCasterPacket(this), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 5));
         }
 		}
@@ -65,7 +86,8 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 	@Override
 	public void writeToNBT(NBTTagCompound data)
 	  {
-		data.setInteger("tankPoopAmount", tankPoop.getFluidAmount());
+		//data.setInteger("tankPoopAmount", tankPoop.getFluidAmount());
+		tankPoop.writeToNBT(data);
 		NBTTagList nbttaglist = new NBTTagList();
 
         for (int i = 0; i < this.ingotCasterItemStacks.length; ++i)
@@ -86,7 +108,8 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 	@Override
 	public void readFromNBT(NBTTagCompound data)
 	  {
-		tankPoop.fill(new FluidStack(mod_poop.liquidPoop, data.getInteger("tankPooopAmount")), true);
+		//tankPoop.fill(new FluidStack(mod_poop.liquidPoop, data.getInteger("tankPooopAmount")), true);
+		tankPoop.readFromNBT(data);
 		NBTTagList nbttaglist = data.getTagList("Items", 10);
         this.ingotCasterItemStacks = new ItemStack[this.getSizeInventory()];
 
@@ -115,7 +138,7 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 			return 0;
 		}
 		FluidStack liquid = tankToFill.getFluid();
-		if (!resourceCopy.isFluidEqual(new FluidStack(mod_poop.liquidPoop,1))) {
+		if (liquid != null && liquid.amount > 0 && !liquid.isFluidEqual(resourceCopy)) {
 			return 0;
 		}
 		while (tankToFill != null && resourceCopy.amount > 0 && tankToFill.getFluidAmount() < FluidContainerRegistry.BUCKET_VOLUME*4) {

@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ContainerIngotCaster extends Container{
 	private TileIngotCaster caster;
 	private int tankPoopAmount;
+	private int tankPoopID;
 	
 
 	public ContainerIngotCaster(InventoryPlayer inventoryPlayer, TileIngotCaster tile){
@@ -43,6 +44,7 @@ public class ContainerIngotCaster extends Container{
 	    {
 	        super.addCraftingToCrafters(iCrafting);
 	        iCrafting.sendProgressBarUpdate(this, 0, this.caster.tankPoop.getFluidAmount());
+	        iCrafting.sendProgressBarUpdate(this, 1, this.caster.tankPoop.getFluid().getFluidID());
 	    }
 	
 	 
@@ -58,8 +60,13 @@ public class ContainerIngotCaster extends Container{
 	            {
 	                icrafting.sendProgressBarUpdate(this, 0, this.caster.tankPoop.getFluidAmount());
 	            }
+	            if (this.tankPoopID != this.caster.tankPoop.getFluid().getFluidID())
+	            {
+	                icrafting.sendProgressBarUpdate(this, 1, this.caster.tankPoop.getFluid().getFluidID());
+	            }
 	        }
 	        this.tankPoopAmount = this.caster.tankPoop.getFluidAmount();
+	        this.tankPoopID = this.caster.tankPoop.getFluid().getFluidID();
 	    }
 	 
 	 @SideOnly(Side.CLIENT)
@@ -67,7 +74,11 @@ public class ContainerIngotCaster extends Container{
 	    {
 	        if (par1 == 0)
 	        {
-	        	this.caster.tankPoop.setFluid(new FluidStack(mod_poop.liquidPoop, par2));
+	        	this.caster.tankPoop.setFluid(new FluidStack(this.caster.tankPoop.getFluid().getFluid(), par2));
+	        }
+	        if (par1 == 1)
+	        {
+	        	this.caster.tankPoop.setFluid(new FluidStack(FluidRegistry.getFluid(par2), this.caster.tankPoop.getFluidAmount()));
 	        }
 
 	    }
