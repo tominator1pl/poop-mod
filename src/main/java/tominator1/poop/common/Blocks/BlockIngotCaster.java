@@ -58,7 +58,7 @@ public class BlockIngotCaster extends BlockContainer{
     @Override
     public void registerBlockIcons(IIconRegister var1)
     {
-    	this.blockIcon = var1.registerIcon("kupa:toiletSide");
+    	this.blockIcon = var1.registerIcon("kupa:casterSide");
     	this.topTexture = var1.registerIcon("kupa:toiletTop0");
     }
     @SideOnly(Side.CLIENT)
