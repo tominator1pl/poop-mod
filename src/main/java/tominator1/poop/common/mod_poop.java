@@ -8,6 +8,7 @@ import tominator1.poop.common.Blocks.BlockToilet;
 import tominator1.poop.common.Handlers.AutoToiletHandler;
 import tominator1.poop.common.Handlers.BucketHandler;
 import tominator1.poop.common.Handlers.CasterCraftingHandler;
+import tominator1.poop.common.Handlers.FishingToiletHandler;
 import tominator1.poop.common.Items.ItemPoopBucket;
 import tominator1.poop.common.Items.ItemPoopGear;
 import tominator1.poop.common.Items.ItemPoopIngot;
@@ -105,6 +106,7 @@ public class mod_poop {
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(AutoToiletHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(CasterCraftingHandler.INSTANCE);
+		MinecraftForge.EVENT_BUS.register(FishingToiletHandler.INSTANCE);
 		toiletBlock = (new BlockToilet().setBlockName("toilet"));
 		toiletAutoBlock = (new BlockAutoToilet().setBlockName("autoToilet"));
 		ingotCasterBlock = (new BlockIngotCaster().setBlockName("ingotCaster"));
@@ -120,6 +122,13 @@ public class mod_poop {
 		GameRegistry.registerItem(poopIngot, "poopIngot");
 		GameRegistry.registerItem(poopGear, "poop_gear");
 		
+		FishingToiletHandler.INSTANCE.addRecipe(null, 500);
+		FishingToiletHandler.INSTANCE.addRecipe(new ItemStack(Blocks.dirt), 1000);
+		FishingToiletHandler.INSTANCE.addRecipe(new ItemStack(Blocks.cobblestone), 400);
+		FishingToiletHandler.INSTANCE.addRecipe(new ItemStack(Items.stick), 100);
+		FishingToiletHandler.INSTANCE.addRecipe(new ItemStack(Items.iron_ingot), 20);
+		FishingToiletHandler.INSTANCE.addRecipe(new ItemStack(Items.gold_ingot), 5);
+		FishingToiletHandler.INSTANCE.addRecipe(new ItemStack(Items.diamond), 0.7);
 		CasterCraftingHandler.INSTANCE.addRecipe(new FluidStack(liquidPoop, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(poop, 1));
 		GameRegistry.addRecipe(new ItemStack(toiletPaper, 1), new Object[]{"x","x","x",'x',Items.paper});
 		GameRegistry.addRecipe(new ItemStack(poop, 1),new Object[]{"xx","xx",'x',poopOnPaper});
