@@ -61,7 +61,7 @@ public class FishingToiletHandler {
     		rand++;
     	}
     	if(itemStacks.get(rand).itemStack != null){
-    		return itemStacks.get(rand).itemStack;
+    		return itemStacks.get(rand).itemStack.copy();
     	}else{
     		return null;
     	}

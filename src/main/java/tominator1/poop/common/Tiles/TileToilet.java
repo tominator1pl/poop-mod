@@ -74,16 +74,16 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 						if(fishWasSucess){
 							ItemStack itemekItemStack = FishingToiletHandler.INSTANCE.getRecipe();
 							if(itemekItemStack != null){
-								EntityItem entityitem = new EntityItem(fishHook.worldObj, fishHook.posX, fishHook.posY, fishHook.posZ, itemekItemStack);
-								double d1 = fishHook.field_146042_b.posX - fishHook.posX;
-	                            double d3 = fishHook.field_146042_b.posY - fishHook.posY;
-	                            double d5 = fishHook.field_146042_b.posZ - fishHook.posZ;
+								EntityItem entityitem = new EntityItem(this.worldObj, xCoord+0.5, yCoord+1, zCoord+0.5, itemekItemStack);
+								double d1 = fishHook.field_146042_b.posX - xCoord+0.5;
+	                            double d3 = fishHook.field_146042_b.posY - yCoord+1;
+	                            double d5 = fishHook.field_146042_b.posZ - zCoord+0.5;
 	                            double d7 = (double)MathHelper.sqrt_double(d1 * d1 + d3 * d3 + d5 * d5);
 	                            double d9 = 0.1D;
-	                            entityitem.motionX = -(d1 * d9);
+	                            entityitem.motionX = d1 * d9;
 	                            entityitem.motionY = d3 * d9 + (double)MathHelper.sqrt_double(d7) * 0.08D;
 	                            entityitem.motionZ = d5 * d9;
-	                            fishHook.worldObj.spawnEntityInWorld(entityitem);
+	                            this.worldObj.spawnEntityInWorld(entityitem);
 							}
 						}
 						fishHook = null;
