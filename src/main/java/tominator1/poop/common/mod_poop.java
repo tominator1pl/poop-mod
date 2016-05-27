@@ -16,6 +16,7 @@ import tominator1.poop.common.Items.ItemPoopOnPaper;
 import tominator1.poop.common.Items.ItemToiletPaper;
 import tominator1.poop.common.Packets.AutoToiletPacket;
 import tominator1.poop.common.Packets.IngotCasterPacket;
+import tominator1.poop.common.Packets.ToiletFishHookPacket;
 import tominator1.poop.common.Tiles.TileAutoToilet;
 import tominator1.poop.common.Tiles.TileIngotCaster;
 import tominator1.poop.common.Tiles.TileToilet;
@@ -47,8 +48,13 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "poop", name = "Poop Mod", version = "2.0")
+@Mod(modid = mod_poop.MOD_ID, name = mod_poop.MOD_NAME, version = mod_poop.VERSION)
 public class mod_poop {
+	
+    public static final String MOD_ID = "poop";
+    public static final String MOD_NAME = "Poop Mod";
+    public static final String VERSION = "2.0";
+	
 	@Mod.Instance("poop")
 	public static mod_poop instance;
 	
@@ -83,6 +89,7 @@ public class mod_poop {
 		network = NetworkRegistry.INSTANCE.newSimpleChannel("PoopChannel");
 		network.registerMessage(AutoToiletPacket.Handler.class, AutoToiletPacket.class, 0, Side.CLIENT);
 		network.registerMessage(IngotCasterPacket.Handler.class, IngotCasterPacket.class, 1, Side.CLIENT);
+		network.registerMessage(ToiletFishHookPacket.Handler.class, ToiletFishHookPacket.class, 2, Side.CLIENT);
 	}
 
 	@EventHandler

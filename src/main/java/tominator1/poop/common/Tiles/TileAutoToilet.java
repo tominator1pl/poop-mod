@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 
 public class TileAutoToilet extends TileToilet{
@@ -78,6 +79,14 @@ public class TileAutoToilet extends TileToilet{
 	@Override
 	public boolean canDrain(ForgeDirection from, Fluid fluid) {
 		return true;
+	}
+	
+	@Override
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		FluidTankInfo[] infos = new FluidTankInfo[2];
+		infos[0] = new FluidTankInfo(tankWater);
+		infos[1] = new FluidTankInfo(tankPoop);
+		return infos;
 	}
 	
 }

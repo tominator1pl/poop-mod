@@ -49,9 +49,7 @@ public class BlockToilet extends BlockContainer{
 				TileToilet tank = (TileToilet) tile;
 				if (FluidContainerRegistry.isContainer(current)) {
 					FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
-					if (liquid != null) {
-					if (liquid.getFluid() == FluidRegistry.WATER) {
-						
+					if (liquid != null && liquid.getFluid() == FluidRegistry.WATER) {
 						int qty = tank.fill(ForgeDirection.UNKNOWN, liquid, true);
 						
 						if (qty != 0 && !entityplayer.capabilities.isCreativeMode) {
@@ -67,7 +65,6 @@ public class BlockToilet extends BlockContainer{
 						}
 						metaUpdated(tank, world, i, j, k);
 						return true;
-					}
 					}
 				}else if(current.getItem() == mod_poop.toiletPaper && tank.tankWater.getFluidAmount() >= 334){
 					ItemStack var12 = new ItemStack(mod_poop.poopOnPaper, 1, 0);

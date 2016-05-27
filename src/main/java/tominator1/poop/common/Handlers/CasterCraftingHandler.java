@@ -3,7 +3,11 @@ package tominator1.poop.common.Handlers;
 import java.util.HashMap;
 import java.util.Map;
 
+import tominator1.poop.nei.CasterRecipehandler;
+
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CasterCraftingHandler {
@@ -29,6 +33,14 @@ public class CasterCraftingHandler {
      * @param itemStack for Output
      */
     public void addRecipe(FluidStack fluidStack, ItemStack itemStack){
+    	
+    	FluidContainerData[] data = FluidContainerRegistry.getRegisteredFluidContainerData();
+    	ItemStack fluCont = (ItemStack)null;
+    	for(int i = 0; i < data.length; i++){
+    		if(data[i].fluid.isFluidEqual(fluidStack)) fluCont = data[i].filledContainer;
+    	}
+    	if(fluCont == (ItemStack)null) fluCont = new ItemStack(fluidStack.getFluid().getBlock());
+    	CasterRecipehandler.addRecipe(fluidStack, fluCont, itemStack);
     	recipes.put(fluidStack, new RecipeOutputs(fluidStack, itemStack));
     }
     

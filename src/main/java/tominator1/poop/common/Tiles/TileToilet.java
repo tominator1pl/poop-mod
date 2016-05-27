@@ -3,12 +3,15 @@ package tominator1.poop.common.Tiles;
 import java.util.List;
 import java.util.Random;
 
+import javafx.geometry.BoundingBox;
+
 import cpw.mods.fml.common.network.NetworkRegistry;
 import tominator1.poop.common.mod_poop;
 import tominator1.poop.common.Blocks.BlockToilet;
 import tominator1.poop.common.Handlers.AutoToiletHandler;
 import tominator1.poop.common.Handlers.FishingToiletHandler;
 import tominator1.poop.common.Packets.AutoToiletPacket;
+import tominator1.poop.common.Packets.ToiletFishHookPacket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.projectile.EntityFishHook;
@@ -31,6 +34,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 
 public class TileToilet extends TileEntity implements IFluidHandler{
 	private final Random rand = new Random();
@@ -56,8 +60,10 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 						fishHook.setPosition(xCoord+0.5, yCoord+1, zCoord+0.5);
 						fishHookTime = 0;
 						fishWasSucess = false;
+						mod_poop.network.sendToAllAround(new ToiletFishHookPacket(fishHook), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 10));
 					}else if(fishHook == hooks.get(p)){
 						fishHook.setPosition(xCoord+0.5, yCoord+1, zCoord+0.5);
+						mod_poop.network.sendToAllAround(new ToiletFishHookPacket(fishHook), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 10));
 					}else{
 						EntityFishHook entityitem = hooks.get(p);
 						float f = this.rand.nextFloat() * 0.8F + 0.1F;
@@ -75,14 +81,6 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 							ItemStack itemekItemStack = FishingToiletHandler.INSTANCE.getRecipe();
 							if(itemekItemStack != null){
 								EntityItem entityitem = new EntityItem(this.worldObj, xCoord+0.5, yCoord+1, zCoord+0.5, itemekItemStack);
-								double d1 = fishHook.field_146042_b.posX - xCoord+0.5;
-	                            double d3 = fishHook.field_146042_b.posY - yCoord+1;
-	                            double d5 = fishHook.field_146042_b.posZ - zCoord+0.5;
-	                            double d7 = (double)MathHelper.sqrt_double(d1 * d1 + d3 * d3 + d5 * d5);
-	                            double d9 = 0.1D;
-	                            entityitem.motionX = d1 * d9;
-	                            entityitem.motionY = d3 * d9 + (double)MathHelper.sqrt_double(d7) * 0.08D;
-	                            entityitem.motionZ = d5 * d9;
 	                            this.worldObj.spawnEntityInWorld(entityitem);
 							}
 						}
@@ -182,6 +180,8 @@ public class TileToilet extends TileEntity implements IFluidHandler{
 
 	@Override
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		return null;
+		FluidTankInfo[] infos = new FluidTankInfo[1];
+		infos[0] = new FluidTankInfo(tankWater);
+		return infos;
 	}
 }

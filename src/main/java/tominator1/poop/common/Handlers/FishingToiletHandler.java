@@ -32,7 +32,7 @@ public class FishingToiletHandler {
      * @param rarity from 1000 to 0.1
      */
     public void addRecipe(ItemStack itemStack, double rarity){
-    	itemStacks.put(1,new RareItems(itemStack, rarity));
+    	itemStacks.put(2000,new RareItems(itemStack, rarity));
     	Map<Integer, RareItems> tempItemStacksMap = new HashMap<Integer, RareItems>();
     	int actualPercentage = 0;
     	for (Integer entry : itemStacks.keySet()){

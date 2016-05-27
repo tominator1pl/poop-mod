@@ -163,7 +163,9 @@ public class TileIngotCaster extends TileEntity implements IFluidHandler, ISided
 
 	@Override
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		return null;
+		FluidTankInfo[] infos = new FluidTankInfo[1];
+		infos[0] = new FluidTankInfo(tankPoop);
+		return infos;
 	}
 
 	@Override
